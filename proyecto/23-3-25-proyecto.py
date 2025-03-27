@@ -1,8 +1,6 @@
-# sistema de gestion de estudiantes basado en CRUD
+# sistema de gestion de estudiantes basado en sistema CRUD
 
 # Mostrar las opciones a escoger
-
-
 def menu():
     print("\nMenu de opciones")
     print("1-Registrar estudiante")
@@ -13,19 +11,18 @@ def menu():
     print("6-Salir")
 
     # Selección y funciones según la opción escogida
-
     varOpcion = input("Seleccione el número de opción: ")
 
     if varOpcion == "1":
-        registrar_estudiante()
+        RegistrarEstudiante()
     elif varOpcion == "2":
-        mostrar_estudiantes()
+        MostrarEstudiantes()
     elif varOpcion == "3":
-        buscar_estudiante()
+        BuscarEstudiante()
     elif varOpcion == "4":
-        actualizar_estudiante()
+        ActualizarEstudiante()
     elif varOpcion == "5":
-        eliminar_estudiante()
+        EliminarEstudiante()
     elif varOpcion == "6":
         print("Ha salido del menu")
     else:
@@ -33,36 +30,77 @@ def menu():
         menu()
 
 
-# variable de lista que se basaran los procesos
-varLista_Estudiantes = []
+# variable de lista que almacena los estudiantes y sus datos
+varEstudiantes = []
 
+# registrar estudiantes
+
+
+def RegistrarEstudiante():
+
+    varCodigo = int(input("Ingrese el codigo del estudiante: "))
+
+    # Comprabar que el codigo no este registrado
+    for est in varEstudiantes:
+        if est[varCodigo] == varCodigo:
+            print("Codigo ya registrado.")
+            return
+    varNombre = input("Ingrese el nombre del estudiante: ")
+    varEdad = int(input("Ingrese la edad del estudiante: "))
+    varCarrera = input("Ingrese la carrera del estudiante: ")
+    varPromedio = float(input("Ingrese el promedio de estudiante: "))
+
+    # Comprabar que el promedio este dentro del rango 0-100
+    if varPromedio < 0 or varPromedio > 100:
+        print("Promedio invalido. Ingrese un promedio entre 0-100")
+        return
+
+    # Tomar los datos de entrada anteriores y colocarlos en una variable diccionario del estudiante
+    varEstudiantes.append({
+        'codigo': varCodigo,
+        'nombre': varNombre,
+        'edad': varEdad,
+        'carrera': varCarrera,
+        'promedio': varPromedio
+    })
+
+    print("\n" * 2, "***Estudiante registrado correctamente***", "\n" * 2)
+    menu()
+
+# mostrar estudiantes
+
+
+def MostrarEstudiantes():
+    for est in varEstudiantes:
+        print("\n" * 2)
+        print(
+            f"Código: {est['codigo']}, Nombre: {est['nombre']}, Edad: {est['edad']},Carrera: {est['carrera']}, Promedio: {est['promedio']}")
+        print("\n" * 2)
+    menu()
 
 # Proceso para actualización de estudiantes
 
 
-def actualizar_estudiante():
+def ActualizarEstudiante():
     varCodigo = input(
-        "Ingrese el código del estudiante que desea actualizar: ")
-    for est in varLista_Estudiantes:
-        if est["codigo"] == varCodigo:
-            print("Ingrese los nuevos datos o deje en blanco para no cambiar:")
-            varNuevo_Nombre = input(
-                f"Nuevo nombre ({est['nombre']}): ") or est["nombre"]
-            varNueva_Edad = input(
-                f"Nueva edad ({est['edad']}): ") or est["edad"]
-            varNueva_Carrera = input(
-                f"Nueva carrera ({est['carrera']}): ") or est["carrera"]
-            varNuevo_Promedio = input(
-                f"Nuevo promedio ({est['promedio']}): ") or est["promedio"]
+        "Ingrese el código del estudiante que desea actualizar ")
+    for est in varEstudiantes:
+        if est['codigo'] == varCodigo:
+            print("Ingrese los nuevos datos ")
+            varNuevoNombre = input(
+                f"Nuevo nombre ({est['nombre']}): ")
+            varNuevaEdad = int(input(
+                f"Nueva edad ({est['edad']}): "))
+            varNuevaCarrera = input(
+                f"Nueva carrera ({est['carrera']}): ")
+            varNuevoPromedio = input(
+                f"Nuevo promedio ({est['promedio']}): ")
 
-            # Restricciones de numeros negativos y promedios fuera de rango
-            if not varNuevo_Nombre.isdigit() or int(varNueva_Edad) <= 0:
-                print("Edad invalida")
+            # Comprobar que el promedio esta en rango 0-100
+            if varNuevoPromedio < 0 or varNuevoPromedio > 100:
+                print("Promedio invalido. Ingrese un promedio entre 0-100")
                 return
-            if not varNuevo_Promedio.replace(".", "").isdigit() or not (0 <= float(varNuevo_Promedio) <= 100):
-                print("Promedio invalido")
-                return
+    menu()
 
 
-# Ejecutar
 menu()
