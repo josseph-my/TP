@@ -6,10 +6,9 @@ varEstudiantes = []
 
 
 def RegistrarEstudiante():
-
     varCodigo = int(input("Ingrese el codigo del estudiante: "))
 
-# Comprobar que codigo no sea igual a otro ya registrado
+    # Comprobar que codigo no sea igual a otro ya registrado
     for est in varEstudiantes:
         if est[varCodigo] == varCodigo:
             print("Codigo ya registrado.")
@@ -19,11 +18,12 @@ def RegistrarEstudiante():
     varCarrera = input("Ingrese la carrera del estudiante: ")
     varPromedio = float(input("Ingrese el promedio de estudiante: "))
 
-# Comprobar que el promedio este en rango valido (0-100)
+    # Comprobar que el promedio este en rango valido (0-100)
     if varPromedio < 0 or varPromedio > 100:
         print("Promedio invalido. Ingrese un promedio entre 0-100")
         return
 
+    # Añadir los valores tomados a una varible de diccionario del estudiante
     varEstudiantes.append({
         'codigo': varCodigo,
         'nombre': varNombre,
@@ -31,8 +31,7 @@ def RegistrarEstudiante():
         'carrera': varCarrera,
         'promedio': varPromedio
     })
-    print("***Estudiante registrado correctamente***")
-    print("\n" * 2)
+    print("\n" * 2, "***Estudiante registrado correctamente***", "\n" * 2)
 
 # mostrar estudiantes
 
