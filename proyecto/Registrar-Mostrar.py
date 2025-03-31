@@ -38,11 +38,12 @@ def RegistrarEstudiante():
 # mostrar estudiantes
 
 
+varEstudiante = []
+
+
 def MostrarEstudiantes():
     for est in varEstudiantes:
-        print(
-            f"Código: {est['codigo']}, Nombre: {est['nombre']}, Edad: {est['edad']},Carrera: {est['carrera']}, Promedio: {est['promedio']}")
-        print("\n" * 2)
+        print("\n", varEstudiante, "\n")
 
 
 RegistrarEstudiante()
